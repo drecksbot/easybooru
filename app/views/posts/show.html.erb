@@ -184,6 +184,19 @@
     </ul>
   </section>
 
+  <section id="post-search">
+    <% reverse_search_url = CGI.escape(@post.file_url) %>
+    <h2>Search</h2>
+    <ul>
+      <li id="post-search-google"><%= external_link_to "https://lens.google.com/uploadbyurl?url=#{reverse_search_url}&client=e621", "Google", target: "_blank" %></li>
+      <li id="post-search-saucenao"><%= external_link_to "https://saucenao.com/search.php?url=#{reverse_search_url}", "SauceNAO", target: "_blank" %></li>
+      <li id="post-search-derpibooru"><%= external_link_to "https://derpibooru.org/search/reverse?url=#{reverse_search_url}", "Derpibooru", target: "_blank" %></li>
+      <li id="post-search-yandex"><%= external_link_to "https://yandex.com/images/search?url=#{reverse_search_url}&rpt=imageview", "Yandex", target: "_blank" %></li>
+      <li id="post-search-fuzzysearch"><%= external_link_to "https://fuzzysearch.net/#url=#{reverse_search_url}", "FuzzySearch", target: "_blank" %></li>
+      <li id="post-search-fluffle"><%= external_link_to "https://fluffle.xyz/#url=#{reverse_search_url}", "Fluffle", target: "_blank" %></li>
+    </ul>
+  </section>
+
   <section id="post-history">
     <h2>History</h2>
     <ul>
