@@ -11,7 +11,7 @@ class ApplicationComponent < ViewComponent::Base
   end
 
   def current_user
-    CurrentUser.user || User.anonymous
+    CurrentUser.user
   end
 
   def policy(subject)

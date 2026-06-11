@@ -23,6 +23,6 @@ class CategorizedTagListEntryComponent < ApplicationComponent
   end
 
   def can_edit_tag?
-    TagPolicy.new(CurrentUser.user || User.anonymous, t).update?
+    TagPolicy.new(CurrentUser.user, t).update?
   end
 end
