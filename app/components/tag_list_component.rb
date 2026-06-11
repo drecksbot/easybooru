@@ -43,6 +43,6 @@ class TagListComponent < ApplicationComponent
   end
 
   def can_edit_tag?(tag)
-    TagPolicy.new(CurrentUser.user, tag).update?
+    TagPolicy.new(CurrentUser.user || User.anonymous, tag).update?
   end
 end
