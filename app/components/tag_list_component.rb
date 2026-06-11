@@ -41,4 +41,8 @@ class TagListComponent < ApplicationComponent
   def is_underused_tag?(tag)
     tag.post_count <= 1 && tag.general? && tag.name !~ /_\((cosplay|style)\)\z/
   end
+
+  def can_edit_tag?(tag)
+    TagPolicy.new(CurrentUser.user, tag).update?
+  end
 end
