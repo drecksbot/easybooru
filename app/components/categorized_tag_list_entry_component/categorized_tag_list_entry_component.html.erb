@@ -1,14 +1,8 @@
 <li class="flex tag-type-<%= t.category %> <%= "tag-nesting-level-#{level}" if level > 0 %>" data-tag-name="<%= t.name %>" data-is-deprecated="<%= t.is_deprecated? %>">
   <span class="mr-2">
-    <% if t.artist? %>
-      <%= link_to "?", show_or_new_artists_path(name: t.name, z: 1), class: "wiki-link" %>
-    <% elsif t.name =~ /\A\d+\z/ %>
-      <%= link_to "?", wiki_page_path("~#{t.name}", z: 1), class: "wiki-link" %>
-    <% else %>
-      <%= link_to "?", wiki_page_path(t.name, z: 1), class: "wiki-link" %>
+    <% if (category_links = quick_tag_category_links(t)).present? %>
+      <%= category_links %> |
     <% end %>
-
-    <%= link_to "e", edit_tag_path(t), class: "wiki-link edit-tag-link" %>
   </span>
 
   <% if level > 0 %>

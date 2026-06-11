@@ -44,12 +44,17 @@ class CategorizedTagListComponentTest < ViewComponent::TestCase
       assert_css("li[data-tag-name='ayanami_rei_(plugsuit)'].tag-nesting-level-1", count: 1)
     end
 
-    should "show edit links" do
+    should "show quick category links" do
       tag = create(:tag, name: "blue_hair", category: Tag.categories.general)
 
       render_categorized_tag_list([tag])
 
-      assert_css("a.edit-tag-link[href='#{edit_tag_path(tag)}']", text: "e")
+      assert_no_css("a.wiki-link", text: "?")
+      assert_no_css("a.edit-tag-link", text: "e")
+      assert_css("a.tag-category-shortcut-link[href='#{tag_path(tag)}'][data-method='put']", text: "r")
+      assert_css("a.tag-category-shortcut-link[href='#{tag_path(tag)}'][data-method='put']", text: "c")
+      assert_css("a.tag-category-shortcut-link[href='#{tag_path(tag)}'][data-method='put']", text: "m")
+      assert_no_css("a.tag-category-shortcut-link", text: "g")
     end
   end
 end
