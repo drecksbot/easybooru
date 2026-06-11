@@ -21,8 +21,4 @@ class CategorizedTagListEntryComponent < ApplicationComponent
   def is_underused_tag?
     t.post_count <= 1 && t.general? && t.name !~ /_\((cosplay|style)\)\z/
   end
-
-  def can_edit_tag?
-    TagPolicy.new(CurrentUser.user, t).update?
-  end
 end
