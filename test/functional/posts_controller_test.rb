@@ -783,6 +783,13 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
         assert_response :success
         assert_equal("#{@post.md5}.#{@post.file_ext}", response.parsed_body.css("#post-option-download a").attr("download").value)
       end
+
+      should "render the load tags from Danbooru link as the last option for post editors" do
+        get_auth post_path(@post), @user
+
+        assert_response :success
+        assert_select "#post-options li:last-child#post-option-load-danbooru-tags a[href='#{new_post_danbooru_tag_import_path(@post)}']", "Load tags from Danbooru"
+      end
     end
 
     context "create action" do

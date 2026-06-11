@@ -193,6 +193,7 @@ Rails.application.routes.draw do
     resources :events, only: [:index], controller: "post_events", as: "post_events"
     resources :favorites, only: [:index, :create, :destroy]
     resources :replacements, only: [:index, :new, :create], controller: "post_replacements"
+    resource :danbooru_tag_import, only: [:new, :create], controller: "post_danbooru_tag_imports"
     resource :artist_commentary, only: [:show] do
       collection { put :create_or_update }
       member { put :revert }

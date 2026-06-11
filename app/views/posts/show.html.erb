@@ -181,6 +181,10 @@
       <% if policy(@post).regenerate? %>
         <li id="post-option-regenerate-preview"><%= link_to "Regenerate image", post_regenerations_path(post_id: @post.id, category: "resizes"), method: :post, "data-confirm": "This will regenerate the posts's thumbnail images. Are you sure?" %></li>
       <% end %>
+
+      <% if policy(@post).update? %>
+        <li id="post-option-load-danbooru-tags"><%= link_to "Load tags from Danbooru", new_post_danbooru_tag_import_path(@post), remote: true %></li>
+      <% end %>
     </ul>
   </section>
 

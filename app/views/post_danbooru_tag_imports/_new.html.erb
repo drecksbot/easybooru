@@ -1,0 +1,5 @@
+<div class="load-danbooru-tags-dialog-body">
+  <%= edit_form_for(:danbooru_tag_import, url: post_danbooru_tag_import_path(post), method: :post) do |f| %>
+    <%= f.input :danbooru_post_id, label: "Danbooru post ID", hint: "Enter a post ID or URL, for example https://danbooru.donmai.us/posts/7719391.", as: :string %>
+  <% end %>
+</div>

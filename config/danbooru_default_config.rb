@@ -457,6 +457,13 @@ module Danbooru
       nil
     end
 
+    # Your Danbooru username and API key for importing tags from the original Danbooru.
+    def original_username
+    end
+
+    def original_api_key
+    end
+
     # Your Newgrounds "ng_remember" cookie. Login to Newgrounds then use the
     # devtools to find the "ng_remember" cookie.
     def newgrounds_ng_remember_cookie
