@@ -7,11 +7,11 @@
     <ul class="<%= category_name %>-tag-list">
       <% if category_name.in?(NESTABLE_TAG_CATEGORIES) %>
         <% tag_tree(tags).each do |t, subtags| %>
-          <%= render CategorizedTagListEntryComponent.new(t, subtags, level: 0, current_user: current_user) %>
+          <%= render CategorizedTagListEntryComponent.new(t, subtags, level: 0) %>
         <% end %>
       <% else %>
         <% tags.each do |t| %>
-          <%= render CategorizedTagListEntryComponent.new(t, current_user: current_user) %>
+          <%= render CategorizedTagListEntryComponent.new(t) %>
         <% end %>
       <% end %>
     </ul>

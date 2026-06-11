@@ -2,7 +2,9 @@ require "test_helper"
 
 class CategorizedTagListComponentTest < ViewComponent::TestCase
   def render_categorized_tag_list(tags, current_user: User.anonymous)
-    render_inline(CategorizedTagListComponent.new(tags: tags, current_user: current_user))
+    as(current_user) do
+      render_inline(CategorizedTagListComponent.new(tags: tags))
+    end
   end
 
   context "The CategorizedTagListComponent" do

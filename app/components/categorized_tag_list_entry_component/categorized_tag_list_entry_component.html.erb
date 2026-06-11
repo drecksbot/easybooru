@@ -23,5 +23,5 @@
 </li>
 
 <% subtags.each do |subtag, subtags| %>
-  <%= render CategorizedTagListEntryComponent.new(subtag, subtags, level: level + 1, current_user: current_user) %>
+  <%= render CategorizedTagListEntryComponent.new(subtag, subtags, level: level + 1) %>
 <% end %>

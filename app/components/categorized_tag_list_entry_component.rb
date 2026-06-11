@@ -5,18 +5,17 @@
 # This is a separate component because ViewComponent doesn't support partials.
 class CategorizedTagListEntryComponent < ApplicationComponent
   # The tag is called `t` because `tag` is used by a Rails view helper method.
-  attr_reader :t, :subtags, :level, :current_user
+  attr_reader :t, :subtags, :level
 
   delegate :humanized_number, to: :helpers
 
   # @param tag [Tag] The tag to render.
   # @param subtags [Array<Tag, Array>] An optional tree of subtags to render beneath this tag.
   # @param level [Integer] The current nesting level for the tree of subtags.
-  def initialize(tag, subtags = [], level: 0, current_user: CurrentUser.user || User.anonymous)
+  def initialize(tag, subtags = [], level: 0)
     @t = tag
     @subtags = subtags
     @level = level
-    @current_user = current_user || User.anonymous
   end
 
   def is_underused_tag?
