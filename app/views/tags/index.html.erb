@@ -19,7 +19,7 @@
 
       <% t.column "Category" do |tag| %>
         <% if policy(tag).update? && policy(tag).can_change_category? %>
-          <%= edit_form_for(tag, html: { class: "one-line-form" }) do |f| %>
+          <%= edit_form_for(tag, html: { class: "one-line-form !m-0" }) do |f| %>
             <%= hidden_field_tag :url, request.fullpath, id: nil %>
             <%= f.input :category,
                         label: false,
