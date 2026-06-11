@@ -13,7 +13,10 @@ class PostDanbooruTagImportsController < ApplicationController
   def create
     @post = authorize Post.find(params[:post_id]), :update?
     danbooru_post_id = parse_danbooru_post_id(params.dig(:danbooru_tag_import, :danbooru_post_id))
-    @post.update(tag_string: fetch_danbooru_tag_string(danbooru_post_id))
+    @post.update(
+      old_tag_string: @post.tag_string,
+      tag_string: fetch_danbooru_tag_string(danbooru_post_id),
+    )
 
     if @post.errors.any?
       flash[:notice] = @post.errors.full_messages.join("; ")

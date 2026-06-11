@@ -15,7 +15,7 @@ class PostDanbooruTagImportsControllerTest < ActionDispatch::IntegrationTest
       assert_includes(response.body, post_danbooru_tag_import_path(@post))
     end
 
-    should "load tags from a Danbooru post URL" do
+    should "replace tags with tags from a Danbooru post URL" do
       Danbooru.config.stubs(:original_username).returns("danbooru_user")
       Danbooru.config.stubs(:original_api_key).returns("danbooru_api_key")
 
@@ -33,6 +33,7 @@ class PostDanbooruTagImportsControllerTest < ActionDispatch::IntegrationTest
 
       assert_redirected_to @post
       assert_equal("1girl solo", @post.reload.tag_string)
+      assert_not_includes(@post.tag_array, "old_tag")
       assert_equal("Tags loaded from Danbooru post #7719391", flash[:notice])
     end
 
