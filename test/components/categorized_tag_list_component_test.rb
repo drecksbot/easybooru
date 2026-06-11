@@ -51,10 +51,23 @@ class CategorizedTagListComponentTest < ViewComponent::TestCase
 
       assert_no_css("a.wiki-link", text: "?")
       assert_no_css("a.edit-tag-link", text: "e")
+      assert_css("a.tag-category-shortcut-link[href='#{tag_path(tag)}'][data-method='put']", text: "a")
       assert_css("a.tag-category-shortcut-link[href='#{tag_path(tag)}'][data-method='put']", text: "r")
       assert_css("a.tag-category-shortcut-link[href='#{tag_path(tag)}'][data-method='put']", text: "c")
       assert_css("a.tag-category-shortcut-link[href='#{tag_path(tag)}'][data-method='put']", text: "m")
       assert_no_css("a.tag-category-shortcut-link", text: "g")
+    end
+
+    should "show quick category links for artist tags" do
+      tag = create(:tag, name: "sadamoto_yoshiyuki", category: Tag.categories.artist)
+
+      render_categorized_tag_list([tag])
+
+      assert_css("a.tag-category-shortcut-link[href='#{tag_path(tag)}'][data-method='put']", text: "g")
+      assert_css("a.tag-category-shortcut-link[href='#{tag_path(tag)}'][data-method='put']", text: "r")
+      assert_css("a.tag-category-shortcut-link[href='#{tag_path(tag)}'][data-method='put']", text: "c")
+      assert_css("a.tag-category-shortcut-link[href='#{tag_path(tag)}'][data-method='put']", text: "m")
+      assert_no_css("a.tag-category-shortcut-link", text: "a")
     end
   end
 end
