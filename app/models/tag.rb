@@ -6,7 +6,7 @@ class Tag < ApplicationRecord
   # Tags that are permitted to have unbalanced parentheses, as a special exception to the normal rule that parentheses in tags must balanced.
   PERMITTED_UNBALANCED_TAGS = %w[:) :( ;) ;( >:) >:(]
 
-  attr_accessor :updater, :skip_name_validation, :is_bulk_update_request
+  attr_accessor :updater, :skip_name_validation, :skip_artist_category_validation, :is_bulk_update_request
 
   has_one :wiki_page, foreign_key: "title", primary_key: "name"
   has_one :artist, foreign_key: "name", primary_key: "name"
@@ -195,7 +195,7 @@ class Tag < ApplicationRecord
     end
 
     def validate_category
-      if category != Tag.categories.artist && artist.present?
+      if !skip_artist_category_validation && category != Tag.categories.artist && artist.present?
         errors.add(:base, "Artist tags must be in the Artist category")
       end
 

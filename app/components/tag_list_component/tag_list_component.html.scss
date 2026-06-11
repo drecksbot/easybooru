@@ -3,6 +3,32 @@
     overflow-wrap: anywhere;
   }
 
+  .tag-category-shortcuts {
+    display: inline;
+  }
+
+  .tag-category-shortcut-form {
+    display: inline;
+    margin: 0;
+    padding: 0;
+  }
+
+  .tag-category-shortcut-link {
+    display: inline;
+    border: 0;
+    padding: 0;
+    background: transparent;
+    color: var(--link-color);
+    font: inherit;
+    line-height: inherit;
+
+    &:hover, &:active {
+      background: transparent;
+      box-shadow: none;
+      color: var(--link-hover-color);
+    }
+  }
+
   &.inline-tag-list {
     display: inline;
 

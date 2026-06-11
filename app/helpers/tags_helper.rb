@@ -17,11 +17,12 @@ module TagsHelper
   def quick_tag_category_links(tag)
     current_letter = QUICK_TAG_CATEGORY_LINKS.key(tag.category)
     links = QUICK_TAG_CATEGORY_LINKS.except(current_letter).map do |letter, category|
-      link_to letter, tag_path(tag), method: :put, class: "wiki-link tag-category-shortcut-link",
-        title: "Set category to #{TagCategory.reverse_mapping[category].capitalize}", "data-params": {
+      button_to letter, tag_path(tag), method: :put, class: "wiki-link tag-category-shortcut-link",
+        form_class: "tag-category-shortcut-form", title: "Set category to #{TagCategory.reverse_mapping[category].capitalize}", params: {
         tag: { category: category },
+        quick_category: true,
         url: request.fullpath,
-      }.to_param
+      }
     end
 
     safe_join(links)

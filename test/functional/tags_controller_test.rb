@@ -212,6 +212,21 @@ class TagsControllerTest < ActionDispatch::IntegrationTest
         assert_equal(0, @tag.versions.count)
       end
 
+      should "change the category of an artist tag from the quick category buttons" do
+        @tag = create(:tag, category: Tag.categories.artist)
+        @artist = create(:artist, name: @tag.name)
+
+        put_auth tag_path(@tag), @user, params: {
+          tag: { category: Tag.categories.character },
+          quick_category: true,
+          url: posts_path,
+        }
+
+        assert_redirected_to posts_path
+        assert_equal(Tag.categories.character, @tag.reload.category)
+        assert_equal(2, @tag.versions.count)
+      end
+
       context "for deprecation" do
         setup do
           @deprecated_tag = create(:tag, name: "bad_tag", category: Tag.categories.general, post_count: 0, is_deprecated: true)

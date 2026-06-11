@@ -51,11 +51,11 @@ class CategorizedTagListComponentTest < ViewComponent::TestCase
 
       assert_no_css("a.wiki-link", text: "?")
       assert_no_css("a.edit-tag-link", text: "e")
-      assert_css("a.tag-category-shortcut-link[href='#{tag_path(tag)}'][data-method='put']", text: "a")
-      assert_css("a.tag-category-shortcut-link[href='#{tag_path(tag)}'][data-method='put']", text: "r")
-      assert_css("a.tag-category-shortcut-link[href='#{tag_path(tag)}'][data-method='put']", text: "c")
-      assert_css("a.tag-category-shortcut-link[href='#{tag_path(tag)}'][data-method='put']", text: "m")
-      assert_no_css("a.tag-category-shortcut-link", text: "g")
+      assert_css("form.tag-category-shortcut-form[action='#{tag_path(tag)}'][method='post'] button.tag-category-shortcut-link", text: "a")
+      assert_css("form.tag-category-shortcut-form[action='#{tag_path(tag)}'][method='post'] button.tag-category-shortcut-link", text: "r")
+      assert_css("form.tag-category-shortcut-form[action='#{tag_path(tag)}'][method='post'] button.tag-category-shortcut-link", text: "c")
+      assert_css("form.tag-category-shortcut-form[action='#{tag_path(tag)}'][method='post'] button.tag-category-shortcut-link", text: "m")
+      assert_no_css("button.tag-category-shortcut-link", text: "g")
     end
 
     should "show quick category links for artist tags" do
@@ -63,11 +63,11 @@ class CategorizedTagListComponentTest < ViewComponent::TestCase
 
       render_categorized_tag_list([tag])
 
-      assert_css("a.tag-category-shortcut-link[href='#{tag_path(tag)}'][data-method='put']", text: "g")
-      assert_css("a.tag-category-shortcut-link[href='#{tag_path(tag)}'][data-method='put']", text: "r")
-      assert_css("a.tag-category-shortcut-link[href='#{tag_path(tag)}'][data-method='put']", text: "c")
-      assert_css("a.tag-category-shortcut-link[href='#{tag_path(tag)}'][data-method='put']", text: "m")
-      assert_no_css("a.tag-category-shortcut-link", text: "a")
+      assert_css("form.tag-category-shortcut-form[action='#{tag_path(tag)}'][method='post'] button.tag-category-shortcut-link", text: "g")
+      assert_css("form.tag-category-shortcut-form[action='#{tag_path(tag)}'][method='post'] button.tag-category-shortcut-link", text: "r")
+      assert_css("form.tag-category-shortcut-form[action='#{tag_path(tag)}'][method='post'] button.tag-category-shortcut-link", text: "c")
+      assert_css("form.tag-category-shortcut-form[action='#{tag_path(tag)}'][method='post'] button.tag-category-shortcut-link", text: "m")
+      assert_no_css("button.tag-category-shortcut-link", text: "a")
     end
   end
 end

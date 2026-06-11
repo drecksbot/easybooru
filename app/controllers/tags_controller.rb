@@ -26,7 +26,12 @@ class TagsController < ApplicationController
 
   def update
     @tag = authorize Tag.find(params[:id])
-    @tag.update(updater: CurrentUser.user, **permitted_attributes(@tag))
+    if params[:quick_category].present?
+      @tag.skip_artist_category_validation = true
+      @tag.update(updater: CurrentUser.user, category: params.dig(:tag, :category))
+    else
+      @tag.update(updater: CurrentUser.user, **permitted_attributes(@tag))
+    end
     respond_with(@tag, location: params[:url].presence || @tag)
   end
 end
