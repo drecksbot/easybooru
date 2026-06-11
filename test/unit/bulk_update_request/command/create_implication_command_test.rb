@@ -17,14 +17,12 @@ class CreateImplicationCommandTest < ActiveSupport::TestCase
         assert_equal(true, @bur.valid?)
       end
 
-      should "fail for a populated tag without a wiki" do
+      should "succeed for populated tags without wikis" do
         create(:tag, name: "a", post_count: 10)
         create(:tag, name: "b", post_count: 100)
 
-        assert_invalid_bur(
-          script: "imply a -> b",
-          errors: ["Can't create implication [[a]] -> [[b]] ([[a]] must have a wiki page; [[b]] must have a wiki page)"],
-        )
+        @bur = create(:bulk_update_request, script: "imply a -> b")
+        assert_equal(true, @bur.valid?)
       end
 
       should "fail for an implication that is redundant with an existing implication" do

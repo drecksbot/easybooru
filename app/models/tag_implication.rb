@@ -15,7 +15,6 @@ class TagImplication < TagRelationship
   validate :consequent_is_not_aliased
   validate :tag_categories_are_compatible, on: :request
   validate :meets_tag_size_requirements, on: :request
-  validate :has_wiki_page, on: :request
 
   scope :empty, -> { joins(:antecedent_tag).merge(Tag.empty) }
 
@@ -134,15 +133,6 @@ class TagImplication < TagRelationship
       end
     end
 
-    def has_wiki_page
-      if !antecedent_tag.empty? && antecedent_wiki.blank?
-        errors.add(:base, "[[#{antecedent_name}]] must have a wiki page")
-      end
-
-      if !consequent_tag.empty? && consequent_wiki.blank?
-        errors.add(:base, "[[#{consequent_name}]] must have a wiki page")
-      end
-    end
   end
 
   concerning :ApprovalMethods do
