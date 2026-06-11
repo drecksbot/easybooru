@@ -2,7 +2,7 @@
 
 module TagsHelper
   QUICK_TAG_CATEGORY_BUTTON_STYLE = "display: inline; border: 0; padding: 0; background: transparent; color: var(--link-color); font: inherit; line-height: inherit; cursor: pointer; box-shadow: none;".freeze
-  QUICK_TAG_CATEGORY_FORM_STYLE = "display: inline; margin: 0; padding: 0;".freeze
+  QUICK_TAG_CATEGORY_FORM_STYLE = "display: inline; margin: 0; padding: 0; white-space: nowrap;".freeze
 
   QUICK_TAG_CATEGORY_LINKS = {
     "g" => TagCategory::GENERAL,

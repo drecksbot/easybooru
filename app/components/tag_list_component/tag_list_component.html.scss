@@ -3,14 +3,27 @@
     overflow-wrap: anywhere;
   }
 
+  &.search-tag-list, &.categorized-tag-list {
+    li {
+      white-space: nowrap;
+    }
+
+    a.search-tag {
+      overflow-wrap: normal;
+      white-space: nowrap;
+    }
+  }
+
   .tag-category-shortcuts {
     display: inline;
+    white-space: nowrap;
   }
 
   .tag-category-shortcut-form {
     display: inline;
     margin: 0;
     padding: 0;
+    white-space: nowrap;
   }
 
   .tag-category-shortcut-link {
