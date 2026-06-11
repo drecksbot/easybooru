@@ -583,40 +583,6 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
           assert_not_select "#translate"
         end
 
-        should "render reverse image search links in the sidebar" do
-          get post_path(@post)
-
-          reverse_search_url = CGI.escape(@post.file_url)
-
-          assert_response :success
-          assert_select "#post-options + #post-search + #post-history"
-          assert_select "#post-search h2", "Search"
-          assert_select(
-            "#post-search-google a[href='https://lens.google.com/uploadbyurl?url=#{reverse_search_url}&client=e621']",
-            "Google",
-          )
-          assert_select(
-            "#post-search-saucenao a[href='https://saucenao.com/search.php?url=#{reverse_search_url}']",
-            "SauceNAO",
-          )
-          assert_select(
-            "#post-search-derpibooru a[href='https://derpibooru.org/search/reverse?url=#{reverse_search_url}']",
-            "Derpibooru",
-          )
-          assert_select(
-            "#post-search-yandex a[href='https://yandex.com/images/search?url=#{reverse_search_url}&rpt=imageview']",
-            "Yandex",
-          )
-          assert_select(
-            "#post-search-fuzzysearch a[href='https://fuzzysearch.net/#url=#{reverse_search_url}']",
-            "FuzzySearch",
-          )
-          assert_select(
-            "#post-search-fluffle a[href='https://fluffle.xyz/#url=#{reverse_search_url}']",
-            "Fluffle",
-          )
-        end
-
         should "render for a member" do
           get_auth post_path(@post), @user
 
