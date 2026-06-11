@@ -11,9 +11,7 @@
           <%= link_to "?", wiki_page_path(t.name, z: 2), class: "wiki-link" %>
         <% end %>
 
-        <% if policy(t).update? %>
-          <%= link_to "e", edit_tag_path(t), class: "wiki-link edit-tag-link" %>
-        <% end %>
+        <%= link_to "e", edit_tag_path(t), class: "wiki-link edit-tag-link" %>
       </span>
 
       <%= link_to t.pretty_name, posts_path(tags: t.name, **search_params, z: 2), class: "search-tag" %>

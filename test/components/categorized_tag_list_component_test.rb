@@ -44,20 +44,12 @@ class CategorizedTagListComponentTest < ViewComponent::TestCase
       assert_css("li[data-tag-name='ayanami_rei_(plugsuit)'].tag-nesting-level-1", count: 1)
     end
 
-    should "show edit links for members" do
+    should "show edit links" do
       tag = create(:tag, name: "blue_hair", category: Tag.categories.general)
 
-      render_categorized_tag_list([tag], current_user: create(:user))
+      render_categorized_tag_list([tag])
 
       assert_css("a.edit-tag-link[href='#{edit_tag_path(tag)}']", text: "e")
-    end
-
-    should "not show edit links for anonymous users" do
-      tag = create(:tag, name: "blue_hair", category: Tag.categories.general)
-
-      render_categorized_tag_list([tag], current_user: User.anonymous)
-
-      assert_no_css("a.edit-tag-link[href='#{edit_tag_path(tag)}']")
     end
   end
 end

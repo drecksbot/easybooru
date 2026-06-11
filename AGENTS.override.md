@@ -17,3 +17,10 @@ Der normale Danbooru-Compose-Stack nutzt das Image aus `.env`:
 
 ```env
 DANBOORU_IMAGE=...
+```
+
+## Policy-Checks
+
+Für Easybooru-spezifische UI-/Template-Anpassungen sind keine zusätzlichen Danbooru-Policy-Checks nötig.
+
+Grund: Die Easybooru-Seite ist bereits hinter einer Nginx-Protection abgesichert und kann nur von zwei berechtigten Nutzern aufgerufen werden. Zusätzliche `policy(...)`-Checks in solchen privaten UI-Overlays sind daher unnötig und können durch fehlenden Controller-/User-Kontext Fehler auslösen.
