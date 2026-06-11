@@ -10,10 +10,6 @@ class ApplicationComponent < ViewComponent::Base
   def initialize(*args, **options)
   end
 
-  def current_user
-    CurrentUser.user
-  end
-
   def policy(subject)
     Pundit.policy!(current_user, subject)
   end
