@@ -7,6 +7,10 @@
     <% else %>
       <%= link_to "?", wiki_page_path(t.name, z: 1), class: "wiki-link" %>
     <% end %>
+
+    <% if policy(t).update? %>
+      <%= link_to "e", edit_tag_path(t), class: "wiki-link edit-tag-link" %>
+    <% end %>
   </span>
 
   <% if level > 0 %>

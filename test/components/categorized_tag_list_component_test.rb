@@ -1,6 +1,12 @@
 require "test_helper"
 
 class CategorizedTagListComponentTest < ViewComponent::TestCase
+  def render_categorized_tag_list(tags, current_user: User.anonymous)
+    as(current_user) do
+      render_inline(CategorizedTagListComponent.new(tags: tags))
+    end
+  end
+
   context "The CategorizedTagListComponent" do
     should "render tags grouped by category" do
       tags = [
@@ -11,7 +17,7 @@ class CategorizedTagListComponentTest < ViewComponent::TestCase
         create(:tag, name: "commentary", category: Tag.categories.meta),
       ]
 
-      render_inline(CategorizedTagListComponent.new(tags: tags))
+      render_categorized_tag_list(tags)
 
       assert_css(".categorized-tag-list")
       assert_css("li[data-tag-name='sadamoto_yoshiyuki']")
@@ -30,12 +36,28 @@ class CategorizedTagListComponentTest < ViewComponent::TestCase
       create(:tag_implication, antecedent_name: evangelion_subtag.name, consequent_name: evangelion.name, status: "active")
       create(:tag_implication, antecedent_name: ayanami_rei_subtag.name, consequent_name: ayanami_rei.name, status: "active")
 
-      render_inline(CategorizedTagListComponent.new(tags: [evangelion, ayanami_rei, evangelion_subtag, ayanami_rei_subtag]))
+      render_categorized_tag_list([evangelion, ayanami_rei, evangelion_subtag, ayanami_rei_subtag])
 
       assert_css("li[data-tag-name='evangelion']", count: 1)
       assert_css("li[data-tag-name='neon_genesis_evangelion'].tag-nesting-level-1", count: 1)
       assert_css("li[data-tag-name='ayanami_rei']", count: 1)
       assert_css("li[data-tag-name='ayanami_rei_(plugsuit)'].tag-nesting-level-1", count: 1)
+    end
+
+    should "show edit links for members" do
+      tag = create(:tag, name: "blue_hair", category: Tag.categories.general)
+
+      render_categorized_tag_list([tag], current_user: create(:user))
+
+      assert_css("a.edit-tag-link[href='#{edit_tag_path(tag)}']", text: "e")
+    end
+
+    should "not show edit links for anonymous users" do
+      tag = create(:tag, name: "blue_hair", category: Tag.categories.general)
+
+      render_categorized_tag_list([tag], current_user: User.anonymous)
+
+      assert_no_css("a.edit-tag-link[href='#{edit_tag_path(tag)}']")
     end
   end
 end
