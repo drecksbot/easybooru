@@ -13,6 +13,20 @@ class TagsControllerTest < ActionDispatch::IntegrationTest
         assert_response :success
       end
 
+      should "show an inline category selector for editable tags" do
+        get_auth tags_path, @user
+        assert_response :success
+        assert_select "#tag-#{@tag.id} select[name='tag[category]']"
+      end
+
+      should "not show an inline category selector for non-editable tags" do
+        @tag.update!(post_count: 1_000)
+
+        get_auth tags_path, @user
+        assert_response :success
+        assert_select "#tag-#{@tag.id} select[name='tag[category]']", count: 0
+      end
+
       should "render for a sitemap" do
         get tags_path(format: :sitemap)
         assert_response :success
@@ -139,6 +153,16 @@ class TagsControllerTest < ActionDispatch::IntegrationTest
         assert_equal(2, @tag.last_version.version)
         assert_equal(@user, @tag.last_version.updater)
         assert_equal(Tag.categories.general, @tag.last_version.category)
+      end
+
+      should "redirect back to the tag listing after an inline category update" do
+        put_auth tag_path(@tag), @user, params: {
+          tag: { category: Tag.categories.general },
+          url: tags_path(search: { name_matches: @tag.name }),
+        }
+
+        assert_redirected_to tags_path(search: { name_matches: @tag.name })
+        assert_equal(Tag.categories.general, @tag.reload.category)
       end
 
       context "for a tag with >50 posts" do

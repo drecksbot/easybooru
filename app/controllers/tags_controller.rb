@@ -27,6 +27,6 @@ class TagsController < ApplicationController
   def update
     @tag = authorize Tag.find(params[:id])
     @tag.update(updater: CurrentUser.user, **permitted_attributes(@tag))
-    respond_with(@tag)
+    respond_with(@tag, location: params[:url].presence || @tag)
   end
 end
