@@ -2,9 +2,7 @@ require "test_helper"
 
 class SearchTagListComponentTest < ViewComponent::TestCase
   def render_search_tag_list(tags, current_user: User.anonymous)
-    as(current_user) do
-      render_inline(SearchTagListComponent.new(tags: tags))
-    end
+    render_inline(SearchTagListComponent.new(tags: tags, current_user: current_user))
   end
 
   context "The SearchTagListComponent" do
