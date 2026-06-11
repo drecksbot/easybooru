@@ -1,9 +1,9 @@
 <li class="flex tag-type-<%= t.category %> <%= "tag-nesting-level-#{level}" if level > 0 %>" data-tag-name="<%= t.name %>" data-is-deprecated="<%= t.is_deprecated? %>">
-  <div class="tag-category-shortcuts mr-2">
+  <span class="tag-category-shortcuts mr-2">
     <% if (category_links = quick_tag_category_links(t)).present? %>
       <%= category_links %> |
     <% end %>
-  </div>
+  </span>
 
   <% if level > 0 %>
     <span class="nested-tag-icon text-muted select-none mr-1" style="margin-left: <%= 0.75 * (level - 1) %>rem">↳</span>
